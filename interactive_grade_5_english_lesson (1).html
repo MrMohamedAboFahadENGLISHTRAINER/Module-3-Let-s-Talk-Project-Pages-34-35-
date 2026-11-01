@@ -1,0 +1,666 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Grade 5 English - Module 3: Let's Talk & Project</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f0f9ff;
+        }
+        .soft-card {
+            background: #ffffff;
+            border: 2px solid #e0f2fe;
+            box-shadow: 0 10px 25px -5px rgba(2, 132, 199, 0.08);
+        }
+        .badge-yellow {
+            background-color: #fef08a;
+            color: #854d0e;
+            border: 1px solid #fde047;
+        }
+        .tab-btn {
+            transition: all 0.2s ease-in-out;
+            border: 2px solid #bae6fd;
+            background-color: #ffffff;
+            color: #0369a1;
+        }
+        .tab-btn.active {
+            background: linear-gradient(135deg, #0284c7 0%, #0369a1 100%);
+            color: white !important;
+            border-color: #0284c7 !important;
+            box-shadow: 0 4px 14px rgba(2, 132, 199, 0.35);
+        }
+        .chat-bubble-left {
+            background-color: #f1f5f9;
+            border-radius: 18px 18px 18px 2px;
+        }
+        .chat-bubble-right {
+            background-color: #dcfce7;
+            border-radius: 18px 18px 2px 18px;
+        }
+    </style>
+</head>
+<body class="min-h-screen py-6 px-3 sm:px-6 text-slate-800">
+
+    <div class="max-w-4xl mx-auto space-y-6">
+
+        <!-- Header Card -->
+        <div class="soft-card rounded-3xl p-5 sm:p-7 text-center relative overflow-hidden bg-gradient-to-br from-white via-sky-50 to-amber-50">
+            <div class="flex flex-col sm:flex-row items-center justify-between gap-4 border-b border-sky-100 pb-5">
+                <!-- Logo & School Name -->
+                <div class="flex items-center gap-3">
+                    <div class="w-14 h-14 bg-amber-500 text-white rounded-2xl flex items-center justify-center font-black text-2xl shadow-md border-2 border-amber-300">
+                        ب
+                    </div>
+                    <div class="text-left">
+                        <h2 class="text-lg font-extrabold text-sky-950 leading-tight">مدارس البيارق الأهلية</h2>
+                        <p class="text-xs font-bold tracking-wider text-slate-500 uppercase">AL-BAYARIQ PRIVATE SCHOOLS</p>
+                    </div>
+                </div>
+
+                <!-- Main Title Section -->
+                <div class="text-center sm:text-right">
+                    <h1 class="text-2xl sm:text-3xl font-extrabold text-sky-900 tracking-tight">Grade 5 – English</h1>
+                    <div class="mt-1 inline-block badge-yellow px-4 py-1 rounded-full text-xs sm:text-sm font-bold shadow-sm">
+                        Module 3: Let's Talk & Project (Pages 34–35)
+                    </div>
+                </div>
+            </div>
+
+            <!-- Prepared By Sub Card -->
+            <div class="mt-4 bg-white/90 border border-sky-200 rounded-2xl p-4 flex flex-col sm:flex-row items-center justify-between gap-3 shadow-sm">
+                <div class="text-left">
+                    <span class="inline-block bg-amber-100 text-amber-900 text-xs font-extrabold px-3 py-0.5 rounded-full uppercase">
+                        Top Stars 5 KSA Edition
+                    </span>
+                    <h3 class="text-lg sm:text-xl font-extrabold text-sky-900 mt-1">
+                        Prepared by: Mr. Mohamed Abdalla Abo Fahad
+                    </h3>
+                </div>
+                <div class="flex items-center gap-2 bg-sky-50 px-4 py-2 rounded-xl border border-sky-200">
+                    <i class="fa-solid fa-star text-amber-500 text-lg"></i>
+                    <span class="text-xs font-bold text-slate-700">Total Score: <span id="totalScore" class="text-sky-700 text-lg font-extrabold">0</span>/20</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Student Input Section -->
+        <div class="soft-card rounded-3xl p-4 sm:p-5 flex flex-col sm:flex-row items-center gap-4">
+            <div class="flex-1 w-full">
+                <label for="studentName" class="block text-sm font-bold text-sky-900 mb-1 flex items-center gap-2">
+                    <i class="fa-solid fa-user-graduate text-sky-600"></i> Student Name:
+                </label>
+                <input 
+                    type="text" 
+                    id="studentName" 
+                    placeholder="Type your full name here..." 
+                    class="w-full px-4 py-2.5 rounded-xl border-2 border-sky-200 focus:border-sky-500 focus:ring-4 focus:ring-sky-100 outline-none text-slate-700 font-semibold text-base transition-all"
+                    oninput="updateStudentName()"
+                />
+            </div>
+            <div class="text-xs text-slate-500 font-medium sm:w-60 bg-sky-50 p-3 rounded-xl border border-sky-100">
+                <i class="fa-solid fa-circle-info text-sky-600 mr-1"></i> Enter your name to personalize your interactive practice sheet and printable certificate.
+            </div>
+        </div>
+
+        <!-- Section Navigation Tabs -->
+        <div class="grid grid-cols-2 sm:grid-cols-5 gap-2 sm:gap-3">
+            <button onclick="switchTab('vocab')" id="tab-vocab" class="tab-btn active rounded-xl p-3 text-center font-bold text-xs sm:text-sm">
+                <i class="fa-solid fa-apple-whole mb-1 text-base block"></i> 1. Vocab
+            </button>
+            <button onclick="switchTab('grammar')" id="tab-grammar" class="tab-btn rounded-xl p-3 text-center font-bold text-xs sm:text-sm">
+                <i class="fa-solid fa-eye mb-1 text-base block"></i> 2. Look Box
+            </button>
+            <button onclick="switchTab('talk')" id="tab-talk" class="tab-btn rounded-xl p-3 text-center font-bold text-xs sm:text-sm">
+                <i class="fa-solid fa-comments mb-1 text-base block"></i> 3. Let's Talk
+            </button>
+            <button onclick="switchTab('project')" id="tab-project" class="tab-btn rounded-xl p-3 text-center font-bold text-xs sm:text-sm">
+                <i class="fa-solid fa-mobile-screen-button mb-1 text-base block"></i> 4. Project
+            </button>
+            <button onclick="switchTab('quiz')" id="tab-quiz" class="tab-btn col-span-2 sm:col-span-1 rounded-xl p-3 text-center font-bold text-xs sm:text-sm">
+                <i class="fa-solid fa-list-check mb-1 text-base block"></i> 5. Quiz
+            </button>
+        </div>
+
+        <!-- TAB CONTENT 1: VOCABULARY FLASHCARDS -->
+        <div id="content-vocab" class="soft-card rounded-3xl p-5 sm:p-7 space-y-5">
+            <div class="border-b border-sky-100 pb-3 flex items-center justify-between">
+                <div>
+                    <h2 class="text-xl font-bold text-sky-900"><i class="fa-solid fa-volume-high text-sky-600 mr-2"></i>1. Key Vocabulary (Page 34)</h2>
+                    <p class="text-xs text-slate-500">Click any card to listen to pronunciation and view Arabic translation.</p>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4" id="vocabGrid">
+                <!-- Javascript will populate cards -->
+            </div>
+        </div>
+
+        <!-- TAB CONTENT 2: GRAMMAR LOOK BOX -->
+        <div id="content-grammar" class="hidden soft-card rounded-3xl p-5 sm:p-7 space-y-6">
+            <div class="border-b border-sky-100 pb-3">
+                <h2 class="text-xl font-bold text-sky-900"><i class="fa-solid fa-lightbulb text-amber-500 mr-2"></i>2. Grammar Focus (LOOK! Box)</h2>
+                <p class="text-xs text-slate-500">Master requesting food, quantifiers (a few vs a little), and sense verbs.</p>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                <!-- Card 1 -->
+                <div class="bg-amber-50 p-4 rounded-2xl border-2 border-amber-200 space-y-2">
+                    <span class="bg-amber-400 text-amber-950 text-xs font-black px-2.5 py-0.5 rounded-md uppercase">Polite Requests</span>
+                    <h3 class="font-bold text-amber-900 text-sm">Would you like...?</h3>
+                    <p class="text-xs text-slate-700"><strong>Offer:</strong> Would you like some apples?</p>
+                    <p class="text-xs text-slate-700"><strong>Response:</strong> Yes, please. I'd like a few apples.</p>
+                </div>
+
+                <!-- Card 2 -->
+                <div class="bg-sky-50 p-4 rounded-2xl border-2 border-sky-200 space-y-2">
+                    <span class="bg-sky-500 text-white text-xs font-black px-2.5 py-0.5 rounded-md uppercase">Quantifiers</span>
+                    <h3 class="font-bold text-sky-900 text-sm">A few vs. A little</h3>
+                    <p class="text-xs text-slate-700">🍏 <strong>A few:</strong> with countable nouns (apples, coconuts).</p>
+                    <p class="text-xs text-slate-700">🧃 <strong>A little:</strong> with uncountable nouns (juice, sugar).</p>
+                </div>
+
+                <!-- Card 3 -->
+                <div class="bg-emerald-50 p-4 rounded-2xl border-2 border-emerald-200 space-y-2">
+                    <span class="bg-emerald-500 text-white text-xs font-black px-2.5 py-0.5 rounded-md uppercase">Sense Verbs</span>
+                    <h3 class="font-bold text-emerald-900 text-sm">Sense Verb + Adjective</h3>
+                    <p class="text-xs text-slate-700">It / They + <strong>taste / look / sound / smell</strong> + adjective.</p>
+                    <p class="text-xs text-slate-700 font-semibold text-emerald-800">Examples: They look <em>delicious</em>! It smells <em>great</em>! It tastes <em>sour</em>!</p>
+                </div>
+            </div>
+
+            <!-- Quick Practice inside Grammar -->
+            <div class="bg-slate-50 p-4 rounded-2xl border border-slate-200 space-y-3">
+                <h3 class="font-bold text-slate-800 text-sm"><i class="fa-solid fa-pen-to-square text-sky-600 mr-1"></i> Quick Quantifier Check:</h3>
+                <div class="space-y-2 text-xs sm:text-sm">
+                    <div class="flex items-center justify-between p-2.5 bg-white rounded-xl border border-slate-200">
+                        <span>1. There are <span class="font-bold text-sky-700">[?]</span> apples in the basket.</span>
+                        <select id="gq1" onchange="checkGrammarQuick()" class="p-1.5 border rounded-lg text-xs font-bold">
+                            <option value="">Select</option>
+                            <option value="a few">a few</option>
+                            <option value="a little">a little</option>
+                        </select>
+                    </div>
+                    <div class="flex items-center justify-between p-2.5 bg-white rounded-xl border border-slate-200">
+                        <span>2. There's <span class="font-bold text-sky-700">[?]</span> orange juice in the glass.</span>
+                        <select id="gq2" onchange="checkGrammarQuick()" class="p-1.5 border rounded-lg text-xs font-bold">
+                            <option value="">Select</option>
+                            <option value="a few">a few</option>
+                            <option value="a little">a little</option>
+                        </select>
+                    </div>
+                </div>
+                <div id="grammarQuickFb" class="text-xs font-bold"></div>
+            </div>
+        </div>
+
+        <!-- TAB CONTENT 3: LET'S TALK DIALOGUE BUILDER -->
+        <div id="content-talk" class="hidden soft-card rounded-3xl p-5 sm:p-7 space-y-6">
+            <div class="border-b border-sky-100 pb-3 flex items-center justify-between">
+                <div>
+                    <h2 class="text-xl font-bold text-sky-900"><i class="fa-solid fa-comments text-sky-600 mr-2"></i>3. Interactive Dialogue Builder (Let's Talk)</h2>
+                    <p class="text-xs text-slate-500">Build polite ordering conversations and test your choices.</p>
+                </div>
+            </div>
+
+            <!-- Dialogue Builder Interface -->
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                <!-- Controls -->
+                <div class="bg-sky-50 p-4 rounded-2xl border border-sky-200 space-y-3">
+                    <h3 class="font-bold text-sky-900 text-sm">Select Items:</h3>
+                    
+                    <div>
+                        <label class="block text-xs font-bold text-slate-700 mb-1">Item Category:</label>
+                        <select id="talkCategory" onchange="updateTalkOptions()" class="w-full p-2 border rounded-xl font-semibold text-xs text-slate-700">
+                            <option value="fruit">Fruit Stand (Countable)</option>
+                            <option value="drink">Drink Stand (Uncountable)</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-bold text-slate-700 mb-1">Item Name:</label>
+                        <select id="talkItem" onchange="generateDialogue()" class="w-full p-2 border rounded-xl font-semibold text-xs text-slate-700"></select>
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-bold text-slate-700 mb-1">Quantifier Choice:</label>
+                        <select id="talkQuantifier" onchange="generateDialogue()" class="w-full p-2 border rounded-xl font-semibold text-xs text-slate-700">
+                            <option value="a few">a few</option>
+                            <option value="a little">a little</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-bold text-slate-700 mb-1">Adjective Taste:</label>
+                        <select id="talkAdjective" onchange="generateDialogue()" class="w-full p-2 border rounded-xl font-semibold text-xs text-slate-700">
+                            <option value="delicious">delicious</option>
+                            <option value="sour">sour</option>
+                            <option value="sweet">sweet</option>
+                            <option value="terrible">terrible</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Chat Display -->
+                <div class="sm:col-span-2 bg-slate-50 p-4 rounded-2xl border border-slate-200 flex flex-col justify-between space-y-3">
+                    <div class="space-y-3 text-xs sm:text-sm" id="chatBubbleContainer">
+                        <!-- Dynamic chat content -->
+                    </div>
+
+                    <div class="pt-3 border-t border-slate-200 flex items-center justify-between">
+                        <button onclick="speakDialogue()" class="px-4 py-2 bg-sky-600 hover:bg-sky-700 text-white rounded-xl text-xs font-bold shadow">
+                            <i class="fa-solid fa-volume-high mr-1"></i> Listen Conversation
+                        </button>
+                        <div id="talkValidation" class="text-xs font-bold"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- TAB CONTENT 4: PROJECT & WRITING TIP -->
+        <div id="content-project" class="hidden soft-card rounded-3xl p-5 sm:p-7 space-y-6">
+            <div class="border-b border-sky-100 pb-3">
+                <h2 class="text-xl font-bold text-sky-900"><i class="fa-solid fa-mobile-screen-button text-sky-600 mr-2"></i>4. Project & Writing Tip (Page 35)</h2>
+                <p class="text-xs text-slate-500">Asking for help and giving advice in text messages.</p>
+            </div>
+
+            <!-- Messages Grid -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <!-- Betty & Julie Chat -->
+                <div class="bg-slate-100 p-4 rounded-2xl border border-slate-300 space-y-3">
+                    <div class="flex items-center justify-between border-b pb-2">
+                        <span class="font-bold text-slate-800 text-sm"><i class="fa-solid fa-circle text-emerald-500 text-xs mr-1"></i> Betty & Julie</span>
+                        <span class="text-xs text-slate-500">Tablet Screen</span>
+                    </div>
+
+                    <div class="space-y-2 text-xs">
+                        <div class="chat-bubble-left p-2.5 text-slate-800">
+                            <strong>Betty:</strong> Hi, Julie! I have a problem with my sister. She always takes my clothes, but she never asks me first. Last week she took my favorite sweater. There's a hole in it now! What should I do? 😟
+                        </div>
+                        <div class="chat-bubble-right p-2.5 text-slate-800 ml-auto">
+                            <strong>Julie:</strong> Hi, Betty! I understand your problem. I think you should talk to your sister. Tell her to ask you before she borrows your things. You can borrow her things, too.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Fred & Harry Chat -->
+                <div class="bg-slate-100 p-4 rounded-2xl border border-slate-300 space-y-3">
+                    <div class="flex items-center justify-between border-b pb-2">
+                        <span class="font-bold text-slate-800 text-sm"><i class="fa-solid fa-mobile-retro text-sky-600 mr-1"></i> Fred & Harry</span>
+                        <span class="text-xs text-slate-500">Phone Screen</span>
+                    </div>
+
+                    <div class="space-y-2 text-xs">
+                        <div class="chat-bubble-left p-2.5 text-slate-800">
+                            <strong>Fred:</strong> I need your help! My brother got a new tablet. I wanted to play a game, so I took it after I finished my homework. While I was playing, I dropped it and the screen broke. I'm in trouble! Can you help me, please?
+                        </div>
+                        <div class="chat-bubble-right p-2.5 text-slate-800 ml-auto">
+                            <strong>Harry:</strong> You should apologize to your brother and explain what happened. You can also fix it for him. Don't worry, Harry! It's going to be all right.
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Writing Tip Matching Exercise -->
+            <div class="bg-amber-50 p-4 rounded-2xl border border-amber-200 space-y-3">
+                <h3 class="font-bold text-amber-900 text-sm"><i class="fa-solid fa-list-check mr-1"></i> Writing Tip: Match Text Message Expressions</h3>
+                <p class="text-xs text-slate-600">Select the correct function for each text message phrase:</p>
+
+                <div class="space-y-2 text-xs sm:text-sm">
+                    <div class="flex flex-col sm:flex-row sm:items-center justify-between p-2.5 bg-white rounded-xl border border-amber-200 gap-2">
+                        <span>1. "I have a problem with my sister... What should I do?"</span>
+                        <select id="projMatch1" class="p-1.5 border rounded-lg text-xs font-bold">
+                            <option value="">Select Function</option>
+                            <option value="ask">Explain Problem & Ask for Help</option>
+                            <option value="give">Give Advice</option>
+                            <option value="encourage">Give Encouragement</option>
+                        </select>
+                    </div>
+
+                    <div class="flex flex-col sm:flex-row sm:items-center justify-between p-2.5 bg-white rounded-xl border border-amber-200 gap-2">
+                        <span>2. "I think you should talk to your sister."</span>
+                        <select id="projMatch2" class="p-1.5 border rounded-lg text-xs font-bold">
+                            <option value="">Select Function</option>
+                            <option value="ask">Explain Problem & Ask for Help</option>
+                            <option value="give">Give Advice</option>
+                            <option value="encourage">Give Encouragement</option>
+                        </select>
+                    </div>
+
+                    <div class="flex flex-col sm:flex-row sm:items-center justify-between p-2.5 bg-white rounded-xl border border-amber-200 gap-2">
+                        <span>3. "Don't worry! It's going to be all right."</span>
+                        <select id="projMatch3" class="p-1.5 border rounded-lg text-xs font-bold">
+                            <option value="">Select Function</option>
+                            <option value="ask">Explain Problem & Ask for Help</option>
+                            <option value="give">Give Advice</option>
+                            <option value="encourage">Give Encouragement</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="flex items-center gap-3 pt-2">
+                    <button onclick="checkProjectMatching()" class="px-5 py-2 bg-amber-600 text-white rounded-xl text-xs font-bold hover:bg-amber-700 shadow">
+                        Check Writing Tip Answers
+                    </button>
+                    <div id="projectFb" class="text-xs font-bold"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- TAB CONTENT 5: COMPREHENSIVE QUIZ -->
+        <div id="content-quiz" class="hidden soft-card rounded-3xl p-5 sm:p-7 space-y-6">
+            <div class="border-b border-sky-100 pb-3 flex items-center justify-between">
+                <div>
+                    <h2 class="text-xl font-bold text-sky-900"><i class="fa-solid fa-graduation-cap text-sky-600 mr-2"></i>5. Lesson Mastery Quiz</h2>
+                    <p class="text-xs text-slate-500">Answer all questions to finalize your score and earn your certificate.</p>
+                </div>
+            </div>
+
+            <div id="quizQuestionsContainer" class="space-y-4">
+                <!-- Javascript will populate quiz questions -->
+            </div>
+
+            <div class="flex items-center gap-3 pt-2">
+                <button onclick="submitFinalQuiz()" class="px-6 py-2.5 bg-sky-600 hover:bg-sky-700 text-white font-bold rounded-xl text-sm shadow">
+                    Submit Final Quiz
+                </button>
+                <div id="quizFeedback" class="text-xs font-bold"></div>
+            </div>
+        </div>
+
+        <!-- FINAL CERTIFICATE CARD -->
+        <div id="certificateCard" class="soft-card rounded-3xl p-6 sm:p-8 text-center space-y-4 bg-gradient-to-br from-white via-amber-50/40 to-sky-50">
+            <div class="w-16 h-16 bg-amber-400 text-amber-950 rounded-full flex items-center justify-center mx-auto text-3xl shadow-md border-2 border-amber-300">
+                <i class="fa-solid fa-award"></i>
+            </div>
+            <h3 class="text-2xl font-black text-sky-950">Certificate of Completion</h3>
+            <p class="text-slate-600 text-sm font-medium">
+                This certifies that <strong id="certStudentName" class="text-sky-900 underline text-base">Student Name</strong> has successfully completed the interactive lesson for <strong>Module 3: Let's Talk & Project</strong>.
+            </p>
+            <div class="text-3xl font-extrabold text-sky-700">
+                Final Score: <span id="certScore">0</span> / 20 Points
+            </div>
+            <div class="text-xs text-slate-500 border-t border-sky-100 pt-3">
+                <p><strong>مدارس البيارق الأهلية</strong> (AL-BAYARIQ PRIVATE SCHOOLS)</p>
+                <p class="font-bold text-sky-900 mt-0.5">Teacher: Mr. Mohamed Abdalla Abo Fahad</p>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <footer class="text-center py-4 text-xs font-semibold text-slate-500">
+            &copy; AL-BAYARIQ PRIVATE SCHOOLS • Grade 5 English Interactive Learning Hub
+        </footer>
+
+    </div>
+
+    <!-- JavaScript Application Logic -->
+    <script>
+        // Vocabulary Dataset
+        const vocabList = [
+            { word: 'coconut', meaning: 'جوز الهند', icon: '🥥' },
+            { word: 'sour', meaning: 'حامض', icon: '🍋' },
+            { word: 'delicious', meaning: 'لذيذ', icon: '😋' },
+            { word: 'terrible', meaning: 'فظيع / سيء', icon: '🤢' },
+            { word: 'lemonade', meaning: 'عصير ليمون', icon: '🍹' },
+            { word: 'orange juice', meaning: 'عصير برتقال', icon: '🍊' },
+            { word: 'strawberry juice', meaning: 'عصير فراولة', icon: '🍓' },
+            { word: 'apples', meaning: 'تفاح', icon: '🍎' },
+            { word: 'strawberries', meaning: 'فراولة', icon: '🍓' },
+            { word: 'oranges', meaning: 'برتقال', icon: '🍊' },
+            { word: 'sweet', meaning: 'حلو المذاق', icon: '🍬' }
+        ];
+
+        // Quiz Questions Dataset
+        const quizData = [
+            {
+                q: "1. Would you like ______ apples?",
+                options: ["a few", "a little", "much"],
+                answer: 0
+            },
+            {
+                q: "2. Can I have ______ orange juice, please?",
+                options: ["a few", "a little", "many"],
+                answer: 1
+            },
+            {
+                q: "3. Oh no! This lemonade tastes ______!",
+                options: ["sour", "sourness", "soured"],
+                answer: 0
+            },
+            {
+                q: "4. The strawberries look ______!",
+                options: ["delicious", "deliciously", "delight"],
+                answer: 0
+            },
+            {
+                q: "5. I have a problem with my tablet. What ______ I do?",
+                options: ["should", "would", "do"],
+                answer: 0
+            },
+            {
+                q: "6. Don't worry! It's going to be ______ right.",
+                options: ["all", "much", "full"],
+                answer: 0
+            }
+        ];
+
+        // Global Scores
+        let scores = {
+            grammarQuick: 0,
+            talk: 0,
+            project: 0,
+            quiz: 0
+        };
+
+        function updateStudentName() {
+            const nameVal = document.getElementById('studentName').value.trim();
+            document.getElementById('certStudentName').innerText = nameVal !== "" ? nameVal : "Student Name";
+        }
+
+        function calculateTotalScore() {
+            const total = scores.grammarQuick + scores.talk + scores.project + scores.quiz;
+            document.getElementById('totalScore').innerText = total;
+            document.getElementById('certScore').innerText = total;
+        }
+
+        function switchTab(tabId) {
+            const tabs = ['vocab', 'grammar', 'talk', 'project', 'quiz'];
+            tabs.forEach(t => {
+                document.getElementById(`content-${t}`).classList.add('hidden');
+                document.getElementById(`tab-${t}`).classList.remove('active');
+            });
+            document.getElementById(`content-${tabId}`).classList.remove('hidden');
+            document.getElementById(`tab-${tabId}`).classList.add('active');
+        }
+
+        function speak(text) {
+            if ('speechSynthesis' in window) {
+                window.speechSynthesis.cancel();
+                const msg = new SpeechSynthesisUtterance(text);
+                msg.lang = 'en-US';
+                msg.rate = 0.85;
+                window.speechSynthesis.speak(msg);
+            }
+        }
+
+        // Populate Vocab Grid
+        function renderVocabGrid() {
+            const grid = document.getElementById('vocabGrid');
+            grid.innerHTML = vocabList.map(item => `
+                <div onclick="speak('${item.word}')" class="bg-white border-2 border-sky-100 hover:border-sky-400 p-3.5 rounded-2xl text-center cursor-pointer hover:-translate-y-1 transition-all shadow-sm">
+                    <div class="text-3xl mb-1">${item.icon}</div>
+                    <div class="font-bold text-sky-950 text-sm">${item.word}</div>
+                    <div class="text-xs text-slate-500 mt-0.5">${item.meaning}</div>
+                    <div class="mt-2 text-[10px] bg-sky-50 text-sky-700 font-bold px-2 py-0.5 rounded-full inline-block">
+                        <i class="fa-solid fa-volume-high mr-1"></i> Listen
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Quick Grammar Check
+        function checkGrammarQuick() {
+            const gq1 = document.getElementById('gq1').value;
+            const gq2 = document.getElementById('gq2').value;
+            const fb = document.getElementById('grammarQuickFb');
+
+            let pts = 0;
+            if (gq1 === 'a few') pts += 2;
+            if (gq2 === 'a little') pts += 2;
+
+            scores.grammarQuick = pts;
+
+            if (pts === 4) {
+                fb.className = "text-xs font-bold text-emerald-600";
+                fb.innerHTML = "✓ Great job! 'a few' for apples (countable) & 'a little' for juice (uncountable).";
+            } else {
+                fb.className = "text-xs font-bold text-amber-600";
+                fb.innerHTML = "Remember: 'a few' with countable nouns and 'a little' with uncountable nouns.";
+            }
+            calculateTotalScore();
+        }
+
+        // Dialogue Builder Logic
+        const talkData = {
+            fruit: ['apples', 'strawberries', 'coconuts', 'oranges'],
+            drink: ['lemonade', 'orange juice', 'strawberry juice']
+        };
+
+        function updateTalkOptions() {
+            const cat = document.getElementById('talkCategory').value;
+            const itemSelect = document.getElementById('talkItem');
+            itemSelect.innerHTML = talkData[cat].map(i => `<option value="${i}">${i}</option>`).join('');
+            
+            // Set default quantifier recommendation
+            document.getElementById('talkQuantifier').value = cat === 'fruit' ? 'a few' : 'a little';
+            generateDialogue();
+        }
+
+        function generateDialogue() {
+            const cat = document.getElementById('talkCategory').value;
+            const item = document.getElementById('talkItem').value;
+            const quant = document.getElementById('talkQuantifier').value;
+            const adj = document.getElementById('talkAdjective').value;
+
+            const isCountable = cat === 'fruit';
+            const expectedQuant = isCountable ? 'a few' : 'a little';
+
+            const verb = isCountable ? 'look' : 'tastes';
+
+            const container = document.getElementById('chatBubbleContainer');
+            container.innerHTML = `
+                <div class="chat-bubble-left p-2.5 text-slate-800">
+                    <strong>Shopkeeper:</strong> Would you like some ${item}?
+                </div>
+                <div class="chat-bubble-right p-2.5 text-slate-800 ml-auto">
+                    <strong>Student:</strong> Yes, please. I need <strong>${quant}</strong> ${item}. They ${verb} <strong>${adj}</strong>!
+                </div>
+            `;
+
+            const valFb = document.getElementById('talkValidation');
+            if (quant === expectedQuant) {
+                valFb.className = "text-xs font-bold text-emerald-600";
+                valFb.innerHTML = `✓ Perfect Grammar! (${quant} with ${item})`;
+                scores.talk = 4;
+            } else {
+                valFb.className = "text-xs font-bold text-rose-600";
+                valFb.innerHTML = `! Incorrect: Use '${expectedQuant}' for ${item}.`;
+                scores.talk = 1;
+            }
+            calculateTotalScore();
+        }
+
+        function speakDialogue() {
+            const item = document.getElementById('talkItem').value;
+            const quant = document.getElementById('talkQuantifier').value;
+            const adj = document.getElementById('talkAdjective').value;
+            speak(`Would you like some ${item}? Yes please, I need ${quant} ${item}. It tastes ${adj}!`);
+        }
+
+        // Project Writing Tip Matching
+        function checkProjectMatching() {
+            const m1 = document.getElementById('projMatch1').value;
+            const m2 = document.getElementById('projMatch2').value;
+            const m3 = document.getElementById('projMatch3').value;
+            const fb = document.getElementById('projectFb');
+
+            let pts = 0;
+            if (m1 === 'ask') pts += 2;
+            if (m2 === 'give') pts += 2;
+            if (m3 === 'encourage') pts += 2;
+
+            scores.project = pts;
+
+            if (pts === 6) {
+                fb.className = "text-xs font-bold text-emerald-600";
+                fb.innerHTML = "✓ Excellent! All writing tip expressions matched correctly (+6 pts).";
+            } else {
+                fb.className = "text-xs font-bold text-amber-600";
+                fb.innerHTML = `Matched ${pts/2}/3 correctly. Please review the options.`;
+            }
+            calculateTotalScore();
+        }
+
+        // Render Final Quiz
+        function renderQuiz() {
+            const container = document.getElementById('quizQuestionsContainer');
+            container.innerHTML = quizData.map((item, idx) => `
+                <div class="p-3.5 bg-slate-50 rounded-2xl border border-slate-200 space-y-2 text-xs sm:text-sm">
+                    <div class="font-bold text-slate-800">${item.q}</div>
+                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-2">
+                        ${item.options.map((opt, oIdx) => `
+                            <button onclick="selectQuizOption(${idx}, ${oIdx})" id="qBtn_${idx}_${oIdx}" class="qBtn_${idx} p-2 bg-white border border-slate-300 rounded-xl font-semibold text-slate-700 text-left hover:bg-sky-50 transition-all">
+                                ${opt}
+                            </button>
+                        `).join('')}
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        let quizUserAnswers = {};
+
+        function selectQuizOption(qIdx, oIdx) {
+            quizUserAnswers[qIdx] = oIdx;
+            document.querySelectorAll(`.qBtn_${qIdx}`).forEach((btn, i) => {
+                if (i === oIdx) {
+                    btn.className = `qBtn_${qIdx} p-2 bg-sky-600 text-white font-bold rounded-xl text-left shadow`;
+                } else {
+                    btn.className = `qBtn_${qIdx} p-2 bg-white border border-slate-300 font-semibold text-slate-700 rounded-xl text-left`;
+                }
+            });
+        }
+
+        function submitFinalQuiz() {
+            let pts = 0;
+            quizData.forEach((item, idx) => {
+                if (quizUserAnswers[idx] === item.answer) {
+                    pts += 1;
+                }
+            });
+
+            // Convert quiz score out of 6 to max 6 pts
+            scores.quiz = pts;
+            calculateTotalScore();
+
+            const fb = document.getElementById('quizFeedback');
+            fb.className = "text-xs font-bold text-emerald-600";
+            fb.innerHTML = `✓ Quiz Submitted! You scored ${pts}/${quizData.length} in the final quiz. Check your certificate below!`;
+        }
+
+        // Initialize App
+        window.onload = function() {
+            renderVocabGrid();
+            updateTalkOptions();
+            renderQuiz();
+        };
+    </script>
+</body>
+</html>
